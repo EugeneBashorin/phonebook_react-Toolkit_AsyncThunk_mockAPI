@@ -9,19 +9,13 @@ import { fetchTasks } from "redux/operations.js";
 
 export function App(){
   const dispatch = useDispatch();
-  const users = useSelector(getNameList)
-  // useEffect (()=>{
-  //   dispatch(fetchTasks())
-  // },[dispatch])
+  const isLoading = useSelector(state => state.isLoading);
+  const error = useSelector(state => state.error);
 
-  const handleClick = () => {
-    const data = dispatch(fetchTasks());   
-    console.log("work!", data);
-  }
+   useEffect ( ()=>{ dispatch(fetchTasks()) },[dispatch])
 
-  return(
+   return(
       <>
-        <button onClick={handleClick}>Get Fetch Data</button>
         <SectionBlock>
         <h1>Phonebook</h1>
         <ContactForm/>
@@ -29,9 +23,10 @@ export function App(){
         <SectionBlock>
         <h2>Contacts</h2>
         <FilterComponent/>
+        {isLoading && <p>Loading tasks...</p>}
+        {error && <p>{error}</p>}
         <ContactList/>
         </SectionBlock>
-        {/* <p>{users.length > 0 && JSON.stringify(users, null, 2)}</p> */}
       </>
   );
 }
