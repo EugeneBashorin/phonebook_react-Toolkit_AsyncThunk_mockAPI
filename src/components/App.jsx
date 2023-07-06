@@ -3,16 +3,19 @@ import { ContactList } from "./ContactList/ContactList";
 import { FilterComponent } from "./FilterComponent/FilterComponent";
 import { SectionBlock } from "./App.styled.jsx"
 import { useDispatch, useSelector } from "react-redux";
-import {getNameList} from "redux/selectors";
 import { useEffect } from "react";
-import { fetchTasks } from "redux/operations.js";
+import { fetchUsers } from "redux/operations.js";
+import { getIsLoading, getError } from "redux/selectors.js";
 
 export function App(){
   const dispatch = useDispatch();
-  const isLoading = useSelector(state => state.isLoading);
-  const error = useSelector(state => state.error);
+  const isLoading = useSelector(getIsLoading);
+  const error = useSelector(getError);
 
-   useEffect ( ()=>{ dispatch(fetchTasks()) },[dispatch])
+   useEffect ( () => {
+        dispatch(fetchUsers()) 
+        },[dispatch]
+    )
 
    return(
       <>
@@ -23,9 +26,8 @@ export function App(){
         <SectionBlock>
         <h2>Contacts</h2>
         <FilterComponent/>
-        {isLoading && <p>Loading tasks...</p>}
-        {error && <p>{error}</p>}
         <ContactList/>
+        {isLoading && !error && <p><b>Loading Users List...</b></p>}
         </SectionBlock>
       </>
   );

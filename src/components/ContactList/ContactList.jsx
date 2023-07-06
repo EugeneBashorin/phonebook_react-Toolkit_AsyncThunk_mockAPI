@@ -4,7 +4,7 @@ import {ReactComponent as FvrSvgWht} from '../heart-white.svg'
 import React from "react";
 import {ListElement, ListItem, Button, BtnWrapper} from "./ContactList.styled.jsx"
 import {useDispatch, useSelector} from "react-redux";
-import {deleteUser, editFavorite} from "../../redux/userSlice"
+import {deleteUser, editFavorite} from "../../redux/operations.js";
 import { getNameList, getFavoriteFilter, getFilterData } from "../../redux/selectors"
 
 const getFilteredUsersList = (users, statusFavoritesFilter, filterValue) => {
@@ -17,7 +17,7 @@ const getFilteredUsersList = (users, statusFavoritesFilter, filterValue) => {
     if(statusFavoritesFilter.status !== "favorites" && (filterValue !== "" || filterValue.length > 1)){
             return users.filter(user => user.name.toLowerCase().includes(filterValue.toLowerCase()));
         }
-        return users; //default => (!favorites && filterValue === "" || filterValue.length < 2)
+        return users;
 }
 
 export const ContactList = () => {
@@ -34,7 +34,7 @@ const filteredUsers = getFilteredUsersList(namesList, statusFilter, filterValue)
                     {contact.name}: {contact.phoneNumber} 
                     <BtnWrapper>
                         {contact.favorites===true?<FvrSvgRed/>:<FvrSvgWht/>}
-                        <input type="checkbox" checked={contact.favorites} onChange={() => dispatch(editFavorite(contact.id))}/>
+                        <input type="checkbox" checked={contact.favorites} onChange={() => dispatch(editFavorite(contact))}/>
                         <Button type="button" onClick={()=> dispatch(deleteUser(contact.id))}>Delete</Button>
                     </BtnWrapper>
                 </ListItem>
