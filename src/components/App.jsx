@@ -5,12 +5,12 @@ import { SectionBlock } from "./App.styled.jsx"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchUsers } from "redux/operations.js";
-import { getIsLoading, getError } from "redux/selectors.js";
+import { selectIsLoading, selectError } from "redux/selectors.js";
 
 export function App(){
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
    useEffect ( () => {
         dispatch(fetchUsers()) 

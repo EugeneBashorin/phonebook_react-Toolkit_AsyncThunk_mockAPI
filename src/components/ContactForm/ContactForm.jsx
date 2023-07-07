@@ -5,7 +5,6 @@ import React from "react";
 import {LabelEl, LabelElFavorite, Button} from "./ContactForm.styled.jsx"
 import * as Yup from 'yup';
 import {useDispatch} from "react-redux";
-// import {addUser} from "../../redux/userSlice";
 import {addUser} from "../../redux/operations"
 
 const Input = styled(Field)`
